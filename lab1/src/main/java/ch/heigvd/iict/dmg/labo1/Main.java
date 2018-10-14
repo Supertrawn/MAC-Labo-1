@@ -12,65 +12,52 @@ import org.apache.lucene.search.similarities.Similarity;
 
 public class Main {
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 
-		// 1.1. create an analyzer
-		Analyzer analyser = getAnalyzer();
+        // 1.1. create an analyzer
+        Analyzer analyser = getAnalyzer();
 
-		// Section "Tuning the Lucene Score"
-		Similarity similarity = new ClassicSimilarity();
-		//Similarity similarity = new MySimilarity();
-		
-		CACMIndexer indexer = new CACMIndexer(analyser, similarity);
-		indexer.openIndex();
-		CACMParser parser = new CACMParser("documents/cacm.txt", indexer);
-		parser.startParsing();
-		indexer.finalizeIndex();
-		
-		QueriesPerformer queriesPerformer = new QueriesPerformer(analyser, similarity);
+        // Section "Tuning the Lucene Score"
+        Similarity similarity = new ClassicSimilarity();
+        //Similarity similarity = new MySimilarity();
 
-		// Section "Reading Index"
-		readingIndex(queriesPerformer);
+        CACMIndexer indexer = new CACMIndexer(analyser, similarity);
+        indexer.openIndex();
+        CACMParser parser = new CACMParser("documents/cacm.txt", indexer);
+        parser.startParsing();
+        indexer.finalizeIndex();
 
-		// Section "Searching"
-		searching(queriesPerformer);
+        QueriesPerformer queriesPerformer = new QueriesPerformer(analyser, similarity);
 
-		queriesPerformer.close();
-		
-	}
+        // Section "Reading Index"
+        readingIndex(queriesPerformer);
 
-	private static void readingIndex(QueriesPerformer queriesPerformer) {
-		queriesPerformer.printTopRankingTerms("authors", 10);
-		queriesPerformer.printTopRankingTerms("title", 10);
-	}
+        // Section "Searching"
+        searching(queriesPerformer);
 
-	private static void searching(QueriesPerformer queriesPerformer) {
+        queriesPerformer.close();
 
+    }
 
-		// TODO student
-        // queriesPerformer.query(<containing the term Information Retrieval>);
-		// queriesPerformer.query(<containing both Information and Retrieval>);
-        // and so on for all the queries asked on the instructions...
-        //
-		// Reminder: it must print the total number of results and
-		// the top 10 results.
+    private static void readingIndex(QueriesPerformer queriesPerformer) {
+        queriesPerformer.printTopRankingTerms("authors", 10);
+        queriesPerformer.printTopRankingTerms("title", 10);
+    }
+
+    private static void searching(QueriesPerformer queriesPerformer) {
+
+        //queriesPerformer.query("compiler program");
+
         queriesPerformer.query("Information Retrieval");
         queriesPerformer.query("Information AND Retrieval");
         queriesPerformer.query("Retrieval AND Information~ -Database");
         queriesPerformer.query("Info*");
         queriesPerformer.query("Information Retrieval~5");
 
+    }
 
-	}
-
-	private static Analyzer getAnalyzer() {
-	    // TODO student... For the part "Indexing and Searching CACM collection
-		// - Indexing" use, as indicated in the instructions,
-		// the StandardAnalyzer class.
-		//
-		// For the next part "Using different Analyzers" modify this method
-		// and return the appropriate Analyzers asked.
-		return new EnglishAnalyzer();
-	}
+    private static Analyzer getAnalyzer() {
+        return new EnglishAnalyzer();
+    }
 
 }

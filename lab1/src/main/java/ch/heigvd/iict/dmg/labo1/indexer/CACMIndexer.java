@@ -51,20 +51,33 @@ public class CACMIndexer implements ParserListener {
     public void onNewDocument(Long id, String authors, String title, String summary) {
         Document doc = new Document();
 
+        // Define a new type of field (custom kind)
         FieldType fieldType = new FieldType();
 
+        // Use documents, frequencies and positions to compare
+        // all documents with the other ones.
         fieldType.setIndexOptions(IndexOptions.DOCS_AND_FREQS_AND_POSITIONS);
+
+        // Tokenize the field
         fieldType.setTokenized(true);
+
+        // The field must be stored (kept) with the document
         fieldType.setStored(true);
+
+        // Enable the term vectors
         fieldType.setStoreTermVectors(true);
+
+        // Enable the term vector of positions for the document
         fieldType.setStoreTermVectorPositions(true);
+
+        // Enable the term vector of offsets for the document
         fieldType.setStoreTermVectorOffsets(true);
+
+        // Prevents future changes to the field
         fieldType.freeze();
 
-        String[] authorsList = authors.split(";");
-
         // Create the fields
-        Field idField = new Field("id", id.toString(), fieldType);
+        Field idField = new StringField("id", id.toString(), Field.Store.YES);
         Field titleField = new Field("title", title, fieldType);
         Field authorField;
         Field summaryField;
@@ -73,17 +86,19 @@ public class CACMIndexer implements ParserListener {
         doc.add(idField);
         doc.add(titleField);
 
+        // Label the authors as "Unknown" if unknown
         if (Objects.isNull(authors)) {
             authorField = new StringField("authors", "Unknown", Field.Store.YES);
             doc.add(authorField);
         } else {
             // Add all the authors
-            for (String authorName : authorsList) {
+            for (String authorName : authors.split(";")) {
                 authorField = new StringField("authors", authorName, Field.Store.YES);
                 doc.add(authorField);
             }
         }
 
+        // Label the summary empty if empty
         if (Objects.isNull(summary)) {
             summaryField = new Field("summary", "", fieldType);
         } else {
