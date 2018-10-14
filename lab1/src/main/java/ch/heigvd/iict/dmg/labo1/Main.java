@@ -5,7 +5,9 @@ import ch.heigvd.iict.dmg.labo1.parsers.CACMParser;
 import ch.heigvd.iict.dmg.labo1.queries.QueriesPerformer;
 import ch.heigvd.iict.dmg.labo1.similarities.MySimilarity;
 import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.en.EnglishAnalyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
+import org.apache.lucene.search.similarities.ClassicSimilarity;
 import org.apache.lucene.search.similarities.Similarity;
 
 public class Main {
@@ -15,9 +17,9 @@ public class Main {
 		// 1.1. create an analyzer
 		Analyzer analyser = getAnalyzer();
 
-		// TODO student "Tuning the Lucene Score"
-//		Similarity similarity = null;//new MySimilarity();
-		Similarity similarity = new MySimilarity();
+		// Section "Tuning the Lucene Score"
+		Similarity similarity = new ClassicSimilarity();
+		//Similarity similarity = new MySimilarity();
 		
 		CACMIndexer indexer = new CACMIndexer(analyser, similarity);
 		indexer.openIndex();
@@ -62,7 +64,7 @@ public class Main {
 		//
 		// For the next part "Using different Analyzers" modify this method
 		// and return the appropriate Analyzers asked.
-		return new StandardAnalyzer();
+		return new EnglishAnalyzer();
 	}
 
 }
