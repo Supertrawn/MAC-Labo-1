@@ -45,8 +45,7 @@ public class Main {
 	}
 
 	private static void searching(QueriesPerformer queriesPerformer) {
-		// Example
-		queriesPerformer.query("compiler program");
+
 
 		// TODO student
         // queriesPerformer.query(<containing the term Information Retrieval>);
@@ -55,6 +54,13 @@ public class Main {
         //
 		// Reminder: it must print the total number of results and
 		// the top 10 results.
+        queriesPerformer.query("Information Retrieval");
+        queriesPerformer.query("Information AND Retrieval");
+        queriesPerformer.query("Retrieval AND Information~ -Database");
+        queriesPerformer.query("Info*");
+        queriesPerformer.query("Information Retrieval~5");
+
+
 	}
 
 	private static Analyzer getAnalyzer() {
