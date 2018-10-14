@@ -48,3 +48,5 @@
 	c. top 10 terms dans le summary field : algorithm, which, system, computer, paper, described, can, presented, given, time
 	d. 16 élément à 1.40Mo
 	e.
+	
+	voila
