@@ -2,7 +2,6 @@ package ch.heigvd.iict.dmg.labo1.indexer;
 
 import ch.heigvd.iict.dmg.labo1.parsers.ParserListener;
 import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.*;
 import org.apache.lucene.index.IndexOptions;
 import org.apache.lucene.index.IndexWriter;
@@ -15,7 +14,6 @@ import org.apache.lucene.store.FSDirectory;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
-import java.util.List;
 import java.util.Objects;
 
 public class CACMIndexer implements ParserListener {
@@ -75,12 +73,12 @@ public class CACMIndexer implements ParserListener {
 		doc.add(titleField);
 
 		if (Objects.isNull(authors)) {
-			authorField = new StringField("author", "", Field.Store.YES);
+			authorField = new StringField("authors", "", Field.Store.YES);
 			doc.add(authorField);
 		} else {
 			// Add all the authors
 			for (String authorName : authorsList) {
-				authorField = new StringField("author", authorName, Field.Store.YES);
+				authorField = new StringField("authors", authorName, Field.Store.YES);
 				doc.add(authorField);
 			}
 		}
