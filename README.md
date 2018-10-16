@@ -145,13 +145,13 @@ private static Analyzer getAnalyzer() {
 	9. *time*
 	10. *from*
 5. The size of the index on disk: 19 éléments à 1.44Mo
-6. The required time for indexing: TODO
+6. The required time for indexing: 3,824s
 
 #### WhitespaceAnalyzer
 
 ```java
 private static Analyzer getAnalyzer() {
-	return // TODO
+	return new WhitespaceAnalyzer();
 }
 ```
 
@@ -170,7 +170,7 @@ private static Analyzer getAnalyzer() {
 	9. *The*
 	10. *are*
 5. The size of the index on disk: 19 éléments à 1.80Mo
-6. The required time for indexing: TODO
+6. The required time for indexing: 3,350s
 
 #### EnglishAnalyzer
 
@@ -195,13 +195,13 @@ private static Analyzer getAnalyzer() {
 	9. *method*
 	10. *can*
 5. The size of the index on disk: 19 éléments à 1.32Mo
-6. The required time for indexing: TODO
+6. The required time for indexing: 3,004s
 
 #### ShingleAnalyzerWrapper (size 2)
 
 ```java
 private static Analyzer getAnalyzer() {
-	return // TODO
+	return new ShingleAnalyzerWrapper(2,2);
 }
 ```
 
@@ -220,13 +220,13 @@ private static Analyzer getAnalyzer() {
 	9. *presented*
 	10. *time*
 5. The size of the index on disk: 16 élément à 3.92Mo
-6. The required time for indexing: TODO
+6. The required time for indexing: 3,567s
 
 #### ShingleAnalyzerWrapper (size 3)
 
 ```java
 private static Analyzer getAnalyzer() {
-	return // TODO
+	return new ShingleAnalyzerWrapper(3,3);
 }
 ```
 
@@ -245,13 +245,13 @@ private static Analyzer getAnalyzer() {
 	9. *given*
 	10. *presented*
 5. The size of the index on disk: 16 éléments à 5.40Mo
-6. The required time for indexing: TODO
+6. The required time for indexing: 3,943s
 
 #### StopAnalyzer
 
 ```java
 private static Analyzer getAnalyzer() {
-	return // TODO
+	return new StopAnalyzer();
 }
 ```
 
@@ -270,7 +270,7 @@ private static Analyzer getAnalyzer() {
 	9. *given*
 	10. *time*
 5. The size of the index on disk: 16 éléments à 1.40Mo
-6. The required time for indexing: TODO
+6. The required time for indexing: 2,726s
 
 ### Indexing and Searching the CACM collection - Reading Index
 
@@ -355,7 +355,17 @@ private static Analyzer getAnalyzer() {
 	```
 
 	```text
-   	TODO
+   	Results found: 188
+	1457: Data Manipulation and Programming Problemsin Automatic Information Retrieval (1.180699)
+	891: Everyman's Information Retrieval System (1.1004101)
+	1935: Randomized Binary Search Technique (1.0225154)
+	1699: Experimental Evaluation of InformationRetrieval Through a Teletypewriter (0.9628588)
+	3134: The Use of Normal Multiplication Tablesfor Information Storage and Retrieval (0.9191686)
+	2307: Dynamic Document Processing (0.913785)
+	1032: Theoretical Considerations in Information Retrieval Systems (0.8855243)
+	1681: Easy English,a Language for InformationRetrieval Through a Remote Typewriter Console (0.87130356)
+	2990: Effective Information Retrieval Using Term Accuracy (0.87130356)
+	2519: On the Problem of Communicating Complex Information (0.7863115)
    	```
 
 2. Publications containing both "Information" and "Retrieval".
@@ -365,18 +375,38 @@ private static Analyzer getAnalyzer() {
 	```
 
 	```text
-   	TODO
+   	Results found: 23
+	1457: Data Manipulation and Programming Problemsin Automatic Information Retrieval (1.180699)
+	891: Everyman's Information Retrieval System (1.1004101)
+	1935: Randomized Binary Search Technique (1.0225154)
+	1699: Experimental Evaluation of InformationRetrieval Through a Teletypewriter (0.9628588)
+	3134: The Use of Normal Multiplication Tablesfor Information Storage and Retrieval (0.9191686)
+	2307: Dynamic Document Processing (0.913785)
+	1032: Theoretical Considerations in Information Retrieval Systems (0.8855243)
+	1681: Easy English,a Language for InformationRetrieval Through a Remote Typewriter Console (0.87130356)
+	2990: Effective Information Retrieval Using Term Accuracy (0.87130356)
+	2519: On the Problem of Communicating Complex Information (0.7863115)
    	```
 
 3. Publications containing at least the term "Retrieval" and, possibly
 "Information" but not "Database".
    
 	```java
-	queriesPerformer.query("Retrieval AND Information~ -Database");
+	queriesPerformer.query("Retrieval AND +Information -Database");
 	```
 
 	```text
-   	TODO
+   	Results found: 23
+	1457: Data Manipulation and Programming Problemsin Automatic Information Retrieval (1.180699)
+	891: Everyman's Information Retrieval System (1.1004101)
+	1935: Randomized Binary Search Technique (1.0225154)
+	1699: Experimental Evaluation of InformationRetrieval Through a Teletypewriter (0.9628588)
+	3134: The Use of Normal Multiplication Tablesfor Information Storage and Retrieval (0.9191686)
+	2307: Dynamic Document Processing (0.913785)
+	1032: Theoretical Considerations in Information Retrieval Systems (0.8855243)
+	1681: Easy English,a Language for InformationRetrieval Through a Remote Typewriter Console (0.87130356)
+	2990: Effective Information Retrieval Using Term Accuracy (0.87130356)
+	2519: On the Problem of Communicating Complex Information (0.7863115)
    	```
 
 4. Publications containing a term starting with "Info".
@@ -386,7 +416,17 @@ private static Analyzer getAnalyzer() {
 	```
 
 	```text
-   	TODO
+   	Results found: 193
+	222: Coding Isomorphisms (1.0)
+	272: A Storage Allocation Scheme for ALGOL 60 (1.0)
+	396: Automation of Program  Debugging (1.0)
+	397: A Card Format for Reference Files in Information Processing (1.0)
+	409: CL-1, An Environment for a Compiler (1.0)
+	440: Record Linkage (1.0)
+	483: On the Nonexistence of a Phrase Structure Grammar for ALGOL 60 (1.0)
+	616: An Information Algebra - Phase I Report-LanguageStructure Group of the CODASYL Development Committee (1.0)
+	644: A String Language for Symbol Manipulation Based on ALGOL 60 (1.0)
+	655: COMIT as an IR Language (1.0)
    	```
 
 5. Publications containing the term "Information" close to "Retrieval"
@@ -397,7 +437,17 @@ private static Analyzer getAnalyzer() {
 	```
 
 	```text
-   	TODO
+   	Results found: 191
+	1457: Data Manipulation and Programming Problemsin Automatic Information Retrieval (0.6189328)
+	891: Everyman's Information Retrieval System (0.567616)
+	1935: Randomized Binary Search Technique (0.5360115)
+	3134: The Use of Normal Multiplication Tablesfor Information Storage and Retrieval (0.50438124)
+	1699: Experimental Evaluation of InformationRetrieval Through a Teletypewriter (0.49666396)
+	2307: Dynamic Document Processing (0.48708913)
+	1032: Theoretical Considerations in Information Retrieval Systems (0.4641996)
+	1681: Easy English,a Language for InformationRetrieval Through a Remote Typewriter Console (0.4381463)
+	2990: Effective Information Retrieval Using Term Accuracy (0.4381463)
+	2519: On the Problem of Communicating Complex Information (0.42421836)
    	```
 
 ```java
